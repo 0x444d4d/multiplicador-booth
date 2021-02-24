@@ -15,8 +15,10 @@
   * [Segunda iteración](#segundaiteracion)
   
   * [Tercera iteración](#terceraiteracion)
-  
-  * [Aceleración](#aceleracion)
+
+* [Aceleración](#aceleracion)
+
+* [Señales GTKWave](#sennales)
 
 * [Compilación](#compilacion)
 
@@ -202,6 +204,14 @@ $$
   ]
 }
 ```
+
+<a name="sennales"> </a>
+
+### Señales GTKWave
+
+| ![](/home/david/Pictures/señales.png)                                                                 |
+| ----------------------------------------------------------------------------------------------------- |
+| <p style="text-align: center;"><i><b>Figura 5:</b> Señales del diseño en su tercera iteración</i></p> |
 
 <a name="compilacion"> </a>
 
