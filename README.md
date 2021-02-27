@@ -46,7 +46,7 @@ La unidad de control en su diseño final hace uso de 8 estados **[[Figura 4](#fi
 
 El diseño base propuesto se conforma de 8 estados los cuales se ejecutan de forma secuencial por lo tanto realizar la operación de multiplicación sobre todas las combinaciones posibles de números en complemento 2 de 3 bits tardaría ***512* ciclos**. Estos se podrían reducir si evitáramos realizar saltos a estados de suma o resta cuando no sean necesarios.
 
-| ![](./disenno-base.jpg)           |
+| ![](./doc/disenno-base.jpg)           |
 | ------------------------------------------------------------------------------------------------ |
 | <p style="text-align: center;"> <i><b>Figura 1:</b> Estados de la unidad de control base</i></p> |
 
@@ -58,7 +58,7 @@ Partiendo de la suposición de que evitar las sumas y restas produce una mejora 
 
 Debido a esto el nuevo número de estados es 11 y niegan la posible mejora al tener que ejecutarse los nuevos estados en cada iteración dando como resultado un total de ***544*** **ciclos** y una **aceleración de *0.94*** respecto al diseño base.
 
-| ![](./primera-iteracion.jpg)                           |
+| ![](./doc/primera-iteracion.jpg)                           |
 | --------------------------------------------------------------------------------------------------------------------- |
 | <p style="text-align: center;"> <i><b>Figura 2:</b> Estados de la unidad de control tras la primera iteración</i></p> |
 
@@ -74,7 +74,7 @@ A pesar de ello esto resulta imposible ya que los registros son de carga síncro
 
 <a name="figura3"> </a>
 
-| ![](./proyecto.jpg) |
+| ![](./doc/proyecto.jpg) |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | <p style="text-align: center;"> <i><b>Figura 3:</b> Estados de la unidad de control tras la segunda iteración</i></p>                                                   |
 
@@ -94,7 +94,7 @@ Si bien ya se ha conseguido una mejora mayor a 1 aún se puede mejorar el diseñ
 assign q_uc = init ? {Q_mult[1:0], 1'b0} : q;
 ```
 
-| ![](./tercera-iteracion.jpg)                           |
+| ![](./doc/tercera-iteracion.jpg)                           |
 | --------------------------------------------------------------------------------------------------------------------- |
 | <p style="text-align: center;"> <i><b>Figura 4:</b> Estados de la unidad de control tras la tercera iteración</i></p> |
 
@@ -218,11 +218,11 @@ $$
 
 ## Señales GTKWave
 
-| ![](./sennales_ter_iter.png)           |
+| ![](./doc/sennales_ter_iter.png)           |
 | ----------------------------------------------------------------------------------------------------- |
 | <p style="text-align: center;"><i><b>Figura 5:</b> Señales del diseño en su tercera iteración</i></p> |
 
-| ![](./sennales_final.png) |
+| ![](./doc/sennales_final.png) |
 | ---------------------------------------------------------------------------------------- |
 | <p style="text-align: center;"><i><b>Figura 6:</b> Señales del diseño final</i></p>      |
 
