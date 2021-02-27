@@ -46,15 +46,22 @@ always @ (*)
 				nextstate = S2;
 
 		S1:
-			nextstate = S2;
+			if ((~q[2] & q[1]) | (q[2] & ~q[1]))
+				nextstate = S3;
+			else
+				nextstate = S4;
 
 		S2:
 			if ((~q[2] & q[1]) | (q[2] & ~q[1]))
 				nextstate = S3;
 			else
 				nextstate = S4;
+
 		S3:
-			nextstate = S4;
+			if ((~q[2] & q[1]) | (q[2] & ~q[1]))
+				nextstate = S5;
+			else
+				nextstate = S6;
 
 		S4:
 			if ((~q[2] & q[1]) | (q[2] & ~q[1]))
@@ -63,7 +70,7 @@ always @ (*)
 				nextstate = S6;
 
 		S5:
-			nextstate = S6;
+			nextstate = S7;
 
 		S6:
 			nextstate = S7;

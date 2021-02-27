@@ -9,7 +9,7 @@ wire [2:0] q, q_uc;
 
 assign q_uc = init ? {Q_mult[1:0], 1'b0} : q;
 
-datapath camino_datos ( clk, start_mul, shift, sum, init, loadA, Q_mult, M_mult, q, Result_mul);
+cd camino_datos ( clk, start_mul, shift, sum, init, loadA, Q_mult, M_mult, q, Result_mul);
 unidad_control uc ( start_mul, clk, q_uc, fin, shift, sum, init, loadA );
 
 endmodule
