@@ -15,6 +15,8 @@
   * [Segunda iteración](#segundaiteracion)
   
   * [Tercera iteración](#terceraiteracion)
+  
+  * [Diseño final](#disennofinal)
 
 * [Aceleración](#aceleracion)
 
@@ -44,7 +46,7 @@ La unidad de control en su diseño final hace uso de 8 estados **[[Figura 4](#fi
 
 El diseño base propuesto se conforma de 8 estados los cuales se ejecutan de forma secuencial por lo tanto realizar la operación de multiplicación sobre todas las combinaciones posibles de números en complemento 2 de 3 bits tardaría ***512* ciclos**. Estos se podrían reducir si evitáramos realizar saltos a estados de suma o resta cuando no sean necesarios.
 
-| ![](/home/david/Documents/ULL/3/Diseño/actividad-previa-mejorada/doc/disenno-base.jpg)           |
+| ![](./disenno-base.jpg)           |
 | ------------------------------------------------------------------------------------------------ |
 | <p style="text-align: center;"> <i><b>Figura 1:</b> Estados de la unidad de control base</i></p> |
 
@@ -56,7 +58,7 @@ Partiendo de la suposición de que evitar las sumas y restas produce una mejora 
 
 Debido a esto el nuevo número de estados es 11 y niegan la posible mejora al tener que ejecutarse los nuevos estados en cada iteración dando como resultado un total de ***544*** **ciclos** y una **aceleración de *0.94*** respecto al diseño base.
 
-| ![](/home/david/Documents/ULL/3/Diseño/actividad-previa-mejorada/doc/primera-iteracion.jpg)                           |
+| ![](./primera-iteracion.jpg)                           |
 | --------------------------------------------------------------------------------------------------------------------- |
 | <p style="text-align: center;"> <i><b>Figura 2:</b> Estados de la unidad de control tras la primera iteración</i></p> |
 
@@ -66,13 +68,13 @@ Debido a esto el nuevo número de estados es 11 y niegan la posible mejora al te
 
 La única solución a la regresión de la primera iteración del diseño es realizar el desplazamiento y la selección del siguiente estado en el propio estado de desplazamiento. 
 
-A pesar de ello esto resulta imposible ya que los registros son de carga síncrona y no estarán actualizados hasta la siguiente señal de reloj. La solución es predecir el siguiente estado antes de que los registros se actualicen. Para ello la unidad de control recive los bits ***q[1:0]*** y ***q[-1]*** y usa ***q[1:0]***.
+A pesar de ello esto resulta imposible ya que los registros son de carga síncrona y no estarán actualizados hasta la siguiente señal de reloj. La solución es predecir el siguiente estado antes de que los registros se actualicen. Para ello la unidad de control recibe los bits ***q[1:0]*** y ***q[-1]*** y usa ***q[1:0]***.
 
 ***q[-1]*** sigue siendo necesario para la elección de estado en ***S1***.
 
 <a name="figura3"> </a>
 
-| ![Figura 1: Estados de la unidad de control](/home/david/Documents/ULL/3/Diseño/actividad-previa-mejorada/doc/proyecto.jpg "Figura 1: Estados de la unidad de control") |
+| ![](./proyecto.jpg) |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | <p style="text-align: center;"> <i><b>Figura 3:</b> Estados de la unidad de control tras la segunda iteración</i></p>                                                   |
 
@@ -92,7 +94,7 @@ Si bien ya se ha conseguido una mejora mayor a 1 aún se puede mejorar el diseñ
 assign q_uc = init ? {Q_mult[1:0], 1'b0} : q;
 ```
 
-| ![](/home/david/Documents/ULL/3/Diseño/actividad-previa-mejorada/doc/tercera-iteracion.jpg)                           |
+| ![](./tercera-iteracion.jpg)                           |
 | --------------------------------------------------------------------------------------------------------------------- |
 | <p style="text-align: center;"> <i><b>Figura 4:</b> Estados de la unidad de control tras la tercera iteración</i></p> |
 
@@ -100,9 +102,15 @@ assign q_uc = init ? {Q_mult[1:0], 1'b0} : q;
 
 Tras estos cambios se tarda ***352*** **ciclos** en completar las pruebas y la aceleración es ***1.454***.
 
+<a name="disennofinal"> </a>
+
+### Diseño final
+
+El diseño final es similar a la tercera iteración con la salvedad de realizar las operaciones aritméticas y desplazamiento en el mismo estado. Esto permite reducir el número de ciclos en 1 cada vez que se realice una suma o resta. Para ello se ha modificado la estructura de forma que el resultado de las operaciones entre desplazado al registro A. Esta mejora a demás de reducir los ciclos a ***320***, con la consecuente mejora en la aceleración, hace que cualquier operación se ejecute exactamente ***5*** ***ciclos***.
+
 <a name="aceleracion"> </a>
 
-### Aceleración
+## Aceleración
 
 Los cálculos de la aceleración se han realizado con los ciclos de reloj al no tener una medida de tiempo disponible.
 
@@ -125,7 +133,8 @@ $$
         {"category": "Diseño Base", "amount": 1},
         {"category": "Primera Iteracion", "amount": 0.94},
         {"category": "Segunda Iteración", "amount": 1.231},
-        {"category": "Tercera Iteración", "amount": 1.454}
+        {"category": "Tercera Iteración", "amount": 1.454},
+        {"category": "Diseño final", "amount": 1.6}
       ]
     }
   ],
@@ -207,11 +216,15 @@ $$
 
 <a name="sennales"> </a>
 
-### Señales GTKWave
+## Señales GTKWave
 
-| ![](/home/david/Pictures/señales.png)                                                                 |
+| ![](./sennales_ter_iter.png)           |
 | ----------------------------------------------------------------------------------------------------- |
 | <p style="text-align: center;"><i><b>Figura 5:</b> Señales del diseño en su tercera iteración</i></p> |
+
+| ![](./sennales_final.png) |
+| ---------------------------------------------------------------------------------------- |
+| <p style="text-align: center;"><i><b>Figura 6:</b> Señales del diseño final</i></p>      |
 
 <a name="compilacion"> </a>
 
